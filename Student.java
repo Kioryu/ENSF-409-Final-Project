@@ -43,6 +43,13 @@ public class Student {
 		return studentName;
 	}
 
+	public ArrayList <Registration> getRegList(){
+		return studentRegistrationList;
+	}
+
+	public void deleteRegistration (int i){
+		studentRegistrationList.remove(i);
+	}
 /**
 	* set Student name
 	* @param studentName String of student name
@@ -67,7 +74,9 @@ public class Student {
 		this.studentID = studentID;
 	}
 
-
+	public int getRegSize(){
+		return studentRegistrationList.size();
+	}
 		/**
 			* to String method for Student .
 			* @return String that can be printed to console
@@ -76,10 +85,9 @@ public class Student {
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentID() + "\n\n";
-				st+=studentRegistrationList.get(0).getSectionOffering().toString();
-	/*	for (int i=0;i<studentRegistrationList.size();i++){
-			st = st+ "Course: " + studentRegistrationList.get(i).toString() + "\n\n" ;
-	*/
+		for (int i=0;i<studentRegistrationList.size();i++){
+			st = st+ "Course: " + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseName() + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseNumber()+  "\n\n" ;
+	}
 		return st;
 	}
 

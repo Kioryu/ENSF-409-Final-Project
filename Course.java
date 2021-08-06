@@ -93,6 +93,9 @@ public class Course {
 		this.courseNumber = courseNumber;
 	}
 
+	public ArrayList <SectionOffering> getSectionOffering(){
+		return sectionList;
+	}
 /**
 	* get Section offering given an array index
 	* @param i the index to get section offering

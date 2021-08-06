@@ -30,7 +30,7 @@ public class CourseCatalogue {
 		// TODO Auto-generated method stub
 		DBManager db = new DBManager();
 		setCourseList(db.readFromDataBase());
-
+		initializeSectionOffering();
 	}
 
 	/**
@@ -43,6 +43,13 @@ public class CourseCatalogue {
 		if (c!= null) {
 			SectionOffering theOffering = new SectionOffering (sectionNum, sectionCap);
 			c.addOffering(theOffering);
+		}
+	}
+
+	public void initializeSectionOffering(){
+		for (int i=0;i<courseList.size();i++){
+			createSectionOffering(courseList.get(i),1,10);
+			createSectionOffering(courseList.get(i),2,10);
 		}
 	}
 

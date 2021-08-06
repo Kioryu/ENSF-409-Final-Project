@@ -39,6 +39,13 @@ public class SectionOffering {
 		sectionRegistrationList = new ArrayList <Registration>();
 	}
 
+	public ArrayList <Registration> getSectionRegistrationList(){
+		return sectionRegistrationList;
+	}
+
+	public void deleteRegistration(int i){
+		sectionRegistrationList.remove(i);
+	}
 /**
 	* get section number
 	* @return integer of section number
@@ -96,7 +103,10 @@ public class SectionOffering {
 		String st = "\n";
 		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNumber() + "\n";
 		st += "Section Num: " + getSectionNum() + ", section cap: "+ getSectionCap() +"\n";
-		//We also want to print the names of all students in the section
+		System.out.println(sectionRegistrationList.size());
+		for (int j=0; j< sectionRegistrationList.size();j++){
+				st+= sectionRegistrationList.get(j).getStudent().toString();
+		}
 		return st;
 	}
 
