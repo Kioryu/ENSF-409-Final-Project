@@ -66,7 +66,6 @@ public class CourseCatalogue {
 				return c;
 			}
 		}
-		displayCourseNotFoundError();
 		return null;
 	}
 

@@ -85,6 +85,12 @@ public class Student {
 	public String toString () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentID() + "\n\n";
+				return st;
+	}
+
+	public String toString2 () {
+		String st = "Student Name: " + getStudentName() + "\n" +
+				"Student Id: " + getStudentID() + "\n\n";
 		for (int i=0;i<studentRegistrationList.size();i++){
 			st = st+ "Course: " + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseName() + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseNumber()+  "\n\n" ;
 	}

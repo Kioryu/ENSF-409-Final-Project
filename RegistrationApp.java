@@ -1,8 +1,60 @@
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class RegistrationApp {
+	private CourseCatalogue cat=new CourseCatalogue();
+	private StudentData studentdata=new StudentData(cat);
+	private Course c;
+
+
+	public RegistrationApp(){
+		cat=new CourseCatalogue();
+		studentdata=new StudentData(cat);
+		studentdata.initialsetupStudentData();
+		}
+
+	public StudentData getStudentData(){
+			return studentdata;
+		}
+
+	public String searchCatalogue(String cName, String cNum){
+		c=cat.searchCatalogue(cName, Integer.parseInt(cNum));
+		if(c==null)
+			return("Course not found!");
+		return (c.toString());
+
+			}
+
+	public String registerCourse(int i, String cName, String cNum){
+		StudentCourseManager temp= new StudentCourseManager (cat, studentdata, "nut",i,cName, Integer.parseInt(cNum),1);
+		temp.RegisterCourse();
+		return ("Registration Complete!");
+	}
+
+	public String dropCourse(int i, String cName, String cNum){
+		StudentCourseManager temp= new StudentCourseManager (cat, studentdata, "nut",i,cName, Integer.parseInt(cNum),1);
+		temp.DropCourse();
+		return ("Drop Complete!");
+	}
+
+	public String displayStudentCourses(int i){
+		StudentCourseManager temp=new StudentCourseManager(studentdata);
+		return(temp.viewStudentCourses(i));
+	}
+
+	public String displayAllCourses(){
+		return (cat.toString());
+	}
+			/*
+
+
 
 
 	public static void main(String[]args){
@@ -85,5 +137,6 @@ public class RegistrationApp {
 
 
   }
+	*/
 
 }

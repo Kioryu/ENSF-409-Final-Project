@@ -54,14 +54,12 @@ public class StudentCourseManager{
         if(studentIndex>-1 && studentData.studentList.get(studentIndex).getRegSize()<6){
           Registration theRegistration= new Registration();
           theRegistration.completeRegistration(studentData.studentList.get(studentIndex),s);
-          System.out.println(s);
           studentData.addRegistration(studentIndex,courseName,courseNumber,sectionNumber);
         }
         else if (studentIndex==-1){
           Registration theRegistration= new Registration();
           Student temp=new Student(studentName,studentID);
           theRegistration.completeRegistration(temp,s);
-          System.out.println(s);
           studentData.addNewRegistration(temp,courseName,courseNumber,sectionNumber);
 
         }
@@ -87,7 +85,6 @@ public class StudentCourseManager{
         for (int i=0; i<r.size();i++){
           if(r.get(i).getSectionOffering().getTheCourse().getCourseName().equals(courseName)&&r.get(i).getSectionOffering().getTheCourse().getCourseNumber()==courseNumber)
             s= r.get(i).getSectionOffering();
-            System.out.println(r.get(i).getSectionOffering());
             studentData.studentList.get(studentIndex).deleteRegistration(i);
             regIndex=i;
 
@@ -102,14 +99,15 @@ public class StudentCourseManager{
 
     }
   }
-  System.out.println("Can't drop course, drop your life");
+  else
+    System.out.println("Can't drop course, drop your life");
 }
 
 
-    public void viewStudentCourses(int sID){
+    public String viewStudentCourses(int sID){
       studentID=sID;
 
-      System.out.println(studentData.studentList.get(isRegisteredStudent()));
+      return(studentData.studentList.get(isRegisteredStudent()).toString2());
     }
 
 
