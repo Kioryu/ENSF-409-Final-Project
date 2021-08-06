@@ -45,6 +45,7 @@ public class Server {
   public void runApp(String s,RegistrationApp r){
 
       String output;
+      while(true){
       if(s.startsWith("1")){
         output=r.searchCatalogue(s.substring(1,4),s.substring(5,7));
         socketOut.println(output);
@@ -72,6 +73,7 @@ public class Server {
       }
       else socketOut.println("failed");
     }
+  }
 
 
 
