@@ -106,8 +106,11 @@ public class StudentCourseManager{
 
     public String viewStudentCourses(int sID){
       studentID=sID;
-
-      return(studentData.studentList.get(isRegisteredStudent()).toString2());
+      int temp=isRegisteredStudent();
+      if (temp==-1){
+        return("Student not found!");
+      }
+      return(studentData.studentList.get(temp).toString2());
     }
 
 
