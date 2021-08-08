@@ -12,12 +12,15 @@ public class StudentCourseManager{
   public StudentCourseManager (StudentData s){
       studentData=s;
   }
-
-  public StudentCourseManager(CourseCatalogue c, StudentData s, String sn, int sID, String cName,int cNum, int section)
+  public StudentCourseManager (StudentData s, int sID){
+      studentData=s;
+      studentID=sID;
+  }
+  public StudentCourseManager(CourseCatalogue c, StudentData s, String sName, int sID, String cName,int cNum, int section)
   {
     Catalogue=c;
     studentData=s;
-    studentName=sn;
+    studentName=sName;
     studentID=sID;
     courseName=cName;
     courseNumber=cNum;

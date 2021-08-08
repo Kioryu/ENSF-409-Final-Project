@@ -36,45 +36,37 @@ public class Server {
         	output=r.searchCatalogue(input[1],input[2]);
 					System.out.println(input[1]+input[2]);
 					System.out.println(output);
-					//	socketOut.println("GG");
-        	socketOut.print(output);
-					socketOut.flush();
-					socketOut.println("END");
+        	socketOut.println(output+"\nEND\n");
 					socketOut.flush();
       	}
       	else if(s.startsWith("2")){
-        	output=r.registerCourse(Integer.parseInt(input[3]),input[1],input[2]);
-					System.out.println(input[1]+input[2]+input[3]);
+        	output=r.registerCourse(Integer.parseInt(input[5]),input[1],input[2],Integer.parseInt(input[3]),input[4]);
 					System.out.println(output);
-        	socketOut.print(output+"\n");
-					socketOut.flush();
-					socketOut.println("END");
+        	socketOut.println(output);
 					socketOut.flush();
         }
       	else if(s.startsWith("3")){
         	output=r.dropCourse(Integer.parseInt(input[3]),input[1],input[2]);
         	socketOut.print(output);
 					socketOut.flush();
-					socketOut.println("END");
-					socketOut.flush();
         }
       	else if(s.startsWith("4")){
         	output=r.displayAllCourses();
-        	socketOut.print(output);
-					socketOut.flush();
-					socketOut.println("END");
+        	socketOut.print(output+"\nEND\n");
 					socketOut.flush();
         }
       	else if(s.startsWith("5")){
         	output=r.displayStudentCourses(Integer.parseInt(input[1]));
-        	socketOut.print(output);
-					socketOut.flush();
-					socketOut.println("END");
+        	socketOut.print(output+"\nEND\n");
 					socketOut.flush();
         }
 				else if (input[0].equals("11")){
-
+					String studentExist=r.checkStudentRecords(Integer.parseInt(input[1]));
+					socketOut.println(studentExist+"\nEND\n");
+					socketOut.flush();
 				}
+
+
 				else if (input[0].equals("12")){
 					newStudentName=input[1];
 				}

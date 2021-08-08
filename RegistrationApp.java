@@ -32,8 +32,8 @@ public class RegistrationApp {
 
 			}
 
-	public String registerCourse(int i, String cName, String cNum){
-		StudentCourseManager temp= new StudentCourseManager (cat, studentdata, "nut",i,cName, Integer.parseInt(cNum),1);
+	public String registerCourse(int i, String cName, String cNum, int secNum,String studentName){
+		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,studentName,i,cName, Integer.parseInt(cNum),secNum);
 		temp.RegisterCourse();
 		return ("Registration Complete!");
 	}
@@ -53,6 +53,14 @@ public class RegistrationApp {
 		return (cat.toString());
 	}
 
+	public String checkStudentRecords(int i){
+		StudentCourseManager temp=new StudentCourseManager (studentdata,i);
+		int registered=temp.isRegisteredStudent();
+		if (registered>0){
+			return(studentdata.studentList.get(registered).getStudentName());
+		}
+		return (null);
+	}
 
 
 
