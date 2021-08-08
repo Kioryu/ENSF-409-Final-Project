@@ -52,7 +52,7 @@ public class RegistrationApp {
 	public String displayAllCourses(){
 		return (cat.toString());
 	}
-			/*
+
 
 
 
@@ -125,7 +125,7 @@ public class RegistrationApp {
         System.out.println("Please input the student ID:\n");
         String sID=scan.nextLine();
 				StudentCourseManager temp=new StudentCourseManager(studentdata);
-        temp.viewStudentCourses(Integer.parseInt(sID));
+        System.out.println(temp.viewStudentCourses(Integer.parseInt(sID)));
       }
 
       if(Integer.parseInt(input)==6){
@@ -137,6 +137,6 @@ public class RegistrationApp {
 
 
   }
-	*/
+
 
 }

@@ -211,8 +211,34 @@ public class StudentData{
       System.out.println("error");
     }
   }
-
-
+/*
+  public void addRegistration(int studentIndex,String courseName,int courseNumber, int sectionNumber){
+    try{
+      ra=new RandomAccessFile("StudentData.dat","rw");
+    }
+    catch(IOException e){
+      System.out.println("Truly unfortunate");
+    }
+    try{
+      int regSize= studentList.get(studentIndex).getRegSize();
+      System.out.println("current file pointer position"+ ra.getFilePointer());
+      int increment=studentIndex*160;
+      increment= increment+((30*Character.BYTES)+Integer.BYTES)+(regSize-1)*((4*Character.BYTES)+2*Integer.BYTES);
+      ra.seek(increment);
+      System.out.println(increment);
+      System.out.println("current file pointer position"+ ra.getFilePointer());
+      StringBuffer cn=new StringBuffer(courseName);
+      cn.setLength(4);
+      ra.writeChars(cn.toString());
+      ra.writeInt(courseNumber);
+      ra.writeInt(sectionNumber);
+      ra.close();
+    }
+    catch(IOException e){
+      System.out.println("Truly unfortunate");
+    }
+  }
+*/
 
 
 
