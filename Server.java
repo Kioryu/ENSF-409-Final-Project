@@ -32,22 +32,27 @@ public class Server {
 				String [] input = s.split(" ");
 				if(s.equals("QUIT"))
 					break;
+				else if (input[0].equals("11")){
+					String studentExist=r.checkStudentRecords(Integer.parseInt(input[1]));
+					socketOut.println(studentExist+"\nEND\n");
+					socketOut.flush();
+				}
       	else if(s.startsWith("1")){
-        	output=r.searchCatalogue(input[1],input[2]);
+        	output=r.searchCatalogue(input[1].toUpperCase(),input[2]);
 					System.out.println(input[1]+input[2]);
 					System.out.println(output);
         	socketOut.println(output+"\nEND\n");
 					socketOut.flush();
       	}
       	else if(s.startsWith("2")){
-        	output=r.registerCourse(Integer.parseInt(input[5]),input[1],input[2],Integer.parseInt(input[3]),input[4]);
+        	output=r.registerCourse(Integer.parseInt(input[5]),input[1].toUpperCase(),input[2],Integer.parseInt(input[3]),input[4]);
 					System.out.println(output);
-        	socketOut.println(output);
+        	socketOut.println(output+"\nEND\n");
 					socketOut.flush();
         }
       	else if(s.startsWith("3")){
-        	output=r.dropCourse(Integer.parseInt(input[3]),input[1],input[2]);
-        	socketOut.print(output);
+        	output=r.dropCourse(Integer.parseInt(input[3]),input[1].toUpperCase(),input[2]);
+        	socketOut.print(output+"\nEND\n");
 					socketOut.flush();
         }
       	else if(s.startsWith("4")){
@@ -60,11 +65,7 @@ public class Server {
         	socketOut.print(output+"\nEND\n");
 					socketOut.flush();
         }
-				else if (input[0].equals("11")){
-					String studentExist=r.checkStudentRecords(Integer.parseInt(input[1]));
-					socketOut.println(studentExist+"\nEND\n");
-					socketOut.flush();
-				}
+
 
 
 				else if (input[0].equals("12")){

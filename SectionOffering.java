@@ -103,6 +103,7 @@ public class SectionOffering {
 		String st = "\n";
 		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNumber() + "\n";
 		st += "Section Num: " + getSectionNum() + ", section cap: "+ getSectionCap() +"\n";
+		st += "-------------------\n"
 		System.out.println(sectionRegistrationList.size());
 		for (int j=0; j< sectionRegistrationList.size();j++){
 				st+= sectionRegistrationList.get(j).getStudent().toString();
