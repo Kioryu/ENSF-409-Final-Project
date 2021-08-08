@@ -39,6 +39,11 @@ public class SectionOffering {
 		sectionRegistrationList = new ArrayList <Registration>();
 	}
 
+	public boolean sectionFull(){
+		if (sectionRegistrationList.size()>=sectionCap)
+			return true;
+		return false;
+	}
 	public ArrayList <Registration> getSectionRegistrationList(){
 		return sectionRegistrationList;
 	}
@@ -103,7 +108,7 @@ public class SectionOffering {
 		String st = "\n";
 		st += getTheCourse().getCourseName() + " " + getTheCourse().getCourseNumber() + "\n";
 		st += "Section Num: " + getSectionNum() + ", section cap: "+ getSectionCap() +"\n";
-		st += "-------------------\n"
+		st += "-------------------\n";
 		System.out.println(sectionRegistrationList.size());
 		for (int j=0; j< sectionRegistrationList.size();j++){
 				st+= sectionRegistrationList.get(j).getStudent().toString();

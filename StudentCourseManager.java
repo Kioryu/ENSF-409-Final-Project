@@ -46,65 +46,63 @@ public class StudentCourseManager{
     return -1;
   }
 
-  public void RegisterCourse(){
+  public String RegisterCourse(){
     Course c=Catalogue.searchCatalogue(courseName, courseNumber);
     if (c!=null){
       SectionOffering s = c.getSectionOfferingAt(sectionNumber-1);
-        System.out.println(s);
+      if(s.sectionFull())
+        return ("Section is Full, Registration Failed");
       if (s!=null){
         int studentIndex=isRegisteredStudent();
-          System.out.println(studentIndex);
+        ArrayList <Registration> r= s.getSectionRegistrationList();
+        for (int i=0; i<r.size();i++){
+          if(r.get(i).getStudent().getStudentID()==studentID){
+            return("Student Already Registered");
+          }
+        }
         if(studentIndex>-1 && studentData.studentList.get(studentIndex).getRegSize()<6){
           Registration theRegistration= new Registration();
           theRegistration.completeRegistration(studentData.studentList.get(studentIndex),s);
           studentData.addRegistration(studentIndex,courseName,courseNumber,sectionNumber);
+          return ("Registration Complete!");
         }
-        else if (studentIndex==-1){
-          Registration theRegistration= new Registration();
-          Student temp=new Student(studentName,studentID);
-          theRegistration.completeRegistration(temp,s);
-          studentData.addNewRegistration(temp,courseName,courseNumber,sectionNumber);
-
-        }
-
         else
-          System.out.println("Too many courses!");
-
-
+          return("Too many courses!");
       }
-
     }
-
+    return ("Registration Failed!");
   }
 
-  public void DropCourse(){
+
+  public String DropCourse(){
     Course c= Catalogue.searchCatalogue(courseName,courseNumber);
     if (c!=null){
       int studentIndex=isRegisteredStudent();
       SectionOffering s=null;
-      int regIndex=0;
+      //int regIndex=0;
       if (studentIndex>-1){
         ArrayList <Registration> r = studentData.studentList.get(studentIndex).getRegList();
         for (int i=0; i<r.size();i++){
-          if(r.get(i).getSectionOffering().getTheCourse().getCourseName().equals(courseName)&&r.get(i).getSectionOffering().getTheCourse().getCourseNumber()==courseNumber)
+          if(r.get(i).getSectionOffering().getTheCourse().getCourseName().equals(courseName)&&r.get(i).getSectionOffering().getTheCourse().getCourseNumber()==courseNumber){
             s= r.get(i).getSectionOffering();
             studentData.studentList.get(studentIndex).deleteRegistration(i);
-            regIndex=i;
-
+            break;
+        //    regIndex=i;
+          }
         }
-        r=s.getSectionRegistrationList();
-        for (int j=0; j<r.size();j++){
-          if(r.get(j).getStudent().getStudentID()==studentID)
-            s.deleteRegistration(j);
-
+        if (s!=null){
+          r=s.getSectionRegistrationList();
+          for (int j=0; j<r.size();j++){
+            if(r.get(j).getStudent().getStudentID()==studentID)
+              s.deleteRegistration(j);
+            }
+          }
+        studentData.removeFromData(studentIndex,courseName,courseNumber);
+        return("Drop Successful!");
       }
-      studentData.removeFromData(studentIndex,regIndex);
-
     }
+    return ("Can't drop course, drop your life");
   }
-  else
-    System.out.println("Can't drop course, drop your life");
-}
 
 
     public String viewStudentCourses(int sID){

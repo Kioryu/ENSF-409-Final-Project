@@ -34,14 +34,14 @@ public class RegistrationApp {
 
 	public String registerCourse(int i, String cName, String cNum, int secNum,String studentName){
 		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,studentName,i,cName, Integer.parseInt(cNum),secNum);
-		temp.RegisterCourse();
-		return ("Registration Complete!");
+		String s=temp.RegisterCourse();
+		return (s);
 	}
 
 	public String dropCourse(int i, String cName, String cNum){
-		StudentCourseManager temp= new StudentCourseManager (cat, studentdata, "nut",i,cName, Integer.parseInt(cNum),1);
-		temp.DropCourse();
-		return ("Drop Complete!");
+		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,i,cName, Integer.parseInt(cNum));
+		String s=temp.DropCourse();
+		return (s);
 	}
 
 	public String displayStudentCourses(int i){
@@ -59,7 +59,7 @@ public class RegistrationApp {
 		if (registered>0){
 			return(studentdata.studentList.get(registered).getStudentName());
 		}
-		return (null);
+		return ("null");
 	}
 
 

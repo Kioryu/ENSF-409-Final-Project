@@ -73,7 +73,7 @@ public class StudentData{
         }
         else break;
       }
-        StringBuffer temp = new StringBuffer("");
+        StringBuffer temp = new StringBuffer("0000");
         temp.setLength((4*Character.BYTES*(6-registrationAmount)+2*Integer.BYTES*(6-registrationAmount))/2);
         ra.writeChars(temp.toString());
         System.out.println("Do you wish to add another student");
@@ -140,70 +140,59 @@ public class StudentData{
       System.out.println("Truly unfortunate");
     }
     try{
-      int regSize= studentList.get(studentIndex).getRegSize();
-      System.out.println("current file pointer position"+ ra.getFilePointer());
-      int increment=studentIndex*160;
-      increment= increment+((30*Character.BYTES)+Integer.BYTES)+(regSize-1)*((4*Character.BYTES)+2*Integer.BYTES);
+      //System.out.println("current file pointer position"+ ra.getFilePointer());
+      int increment=studentIndex*160+64;
       ra.seek(increment);
-      System.out.println(increment);
-      System.out.println("current file pointer position"+ ra.getFilePointer());
+    //  System.out.println("current file pointer position"+ ra.getFilePointer());
       StringBuffer cn=new StringBuffer(courseName);
       cn.setLength(4);
-      ra.writeChars(cn.toString());
-      ra.writeInt(courseNumber);
-      ra.writeInt(sectionNumber);
-      ra.close();
+      for (int m=0;m<6;m++){
+        char courseID[]= new char[4];
+        String courseNameFromFile="";
+        for(int n=0;n<4;n++){
+          courseID[n]=ra.readChar();
+          courseNameFromFile=new String(courseID);
+        }
+      if (courseNameFromFile.contentEquals("0000")){
+        ra.seek(ra.getFilePointer()-8);
+        ra.writeChars(cn.toString());
+        ra.writeInt(courseNumber);
+        ra.writeInt(sectionNumber);
+        ra.close();
+        break;
+      }
     }
+  }
     catch(IOException e){
       System.out.println("Truly unfortunate");
     }
   }
 
-  public void addNewRegistration(Student temp, String courseName,int courseNumber,int sectionNumber){
-    System.out.println("writring to file");
-    studentList.add(temp);
-    try{
-      RandomAccessFile r=new RandomAccessFile("StudentData.dat","rw");
-      System.out.println(studentList.size()-1);
-      r.seek(160*(studentList.size()-1));
-      StringBuffer sn= new StringBuffer (temp.getStudentName());
-      sn.setLength(30);
-      System.out.println(sn.toString());
-      r.writeChars(sn.toString());
-      int studentID= temp.getStudentID();
-      System.out.println(studentID);
-      r.writeInt(studentID);
-      StringBuffer cn=new StringBuffer(courseName);
-      cn.setLength(4);
-      r.writeChars(cn.toString());
-      r.writeInt(courseNumber);
-      r.writeInt(sectionNumber);
 
-
-      StringBuffer emptyspaces=new StringBuffer("");
-      emptyspaces.setLength(60);
-      r.writeChars(emptyspaces.toString());
-      System.out.println("finished writing");
-      System.out.println(temp);
-      r.close();
-    }
-    catch(IOException e){
-      System.out.println("error");
-    }
-  }
-
-  public void removeFromData(int studentIndex,int regIndex){
+  public void removeFromData(int studentIndex, String courseName, int courseNumber){
     System.out.println("deleting from file");
     try{
       ra=new RandomAccessFile("StudentData.dat","rw");
-      ra.seek((160*studentIndex)+(64)+(16*regIndex));
+      ra.seek((160*studentIndex)+(64));
       System.out.println("current file pointer position "+ ra.getFilePointer());
-      StringBuffer sn= new StringBuffer ("");
-      sn.setLength(4);
-      ra.writeChars(sn.toString());
-      ra.writeInt(0);
-      ra.writeInt(0);
-
+      for (int m=0;m<6;m++){
+        char courseID[]= new char[4];
+        String courseNameFromFile="";
+        for(int n=0;n<4;n++){
+          courseID[n]=ra.readChar();
+          courseNameFromFile=new String(courseID);
+        }
+        int temp = ra.readInt();
+        if(courseNameFromFile.equals(courseName)&&temp==courseNumber){
+          ra.seek(ra.getFilePointer()-12);
+          StringBuffer sn= new StringBuffer ("0000");
+          sn.setLength(4);
+          ra.writeChars(sn.toString());
+          ra.writeInt(0);
+          ra.writeInt(0);
+          break;
+        }
+      }
       System.out.println("finished deleting");
       ra.close();
     }
@@ -211,36 +200,33 @@ public class StudentData{
       System.out.println("error");
     }
   }
-/*
-  public void addRegistration(int studentIndex,String courseName,int courseNumber, int sectionNumber){
-    try{
-      ra=new RandomAccessFile("StudentData.dat","rw");
-    }
-    catch(IOException e){
-      System.out.println("Truly unfortunate");
-    }
-    try{
-      int regSize= studentList.get(studentIndex).getRegSize();
-      System.out.println("current file pointer position"+ ra.getFilePointer());
-      int increment=studentIndex*160;
-      increment= increment+((30*Character.BYTES)+Integer.BYTES)+(regSize-1)*((4*Character.BYTES)+2*Integer.BYTES);
-      ra.seek(increment);
-      System.out.println(increment);
-      System.out.println("current file pointer position"+ ra.getFilePointer());
-      StringBuffer cn=new StringBuffer(courseName);
-      cn.setLength(4);
-      ra.writeChars(cn.toString());
-      ra.writeInt(courseNumber);
-      ra.writeInt(sectionNumber);
-      ra.close();
-    }
-    catch(IOException e){
-      System.out.println("Truly unfortunate");
-    }
-  }
-*/
 
-
+  /*  public void addNewRegistration(Student temp){
+      System.out.println("writring to file") ;
+      studentList.add(temp);
+      try{
+        RandomAccessFile r=new RandomAccessFile("StudentData.dat","rw");
+        System.out.println(studentList.size()-1);
+        r.seek(160*(studentList.size()-1));
+        StringBuffer sn= new StringBuffer (temp.getStudentName());
+        sn.setLength(30);
+        System.out.println(sn.toString());
+        r.writeChars(sn.toString());
+        int studentID= temp.getStudentID();
+        System.out.println(studentID);
+        r.writeInt(studentID);
+        StringBuffer emptyspaces=new StringBuffer(" ");
+        emptyspaces.setLength(48);
+        r.writeChars(emptyspaces.toString());
+        System.out.println("finished writing");
+        System.out.println(temp);
+        r.close();
+      }
+      catch(IOException e){
+        System.out.println("error");
+      }
+    }
+  */
 
 
 
