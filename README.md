@@ -7,7 +7,7 @@ All the data (courseList and studentList) are stored in .dat files accessed thro
 * Jian Shi Chen (jianshi.chen@ucalgary.ca)
 
 ## How to Run the Application
-1. After downloading and decompressing the file. Open two command windows to run the server (Server.java) and client (ClientSocket.java).
+1. After downloading and decompressing the file. Open two command windows to run the server (java Server.Server) and client (java Client.ClientSocket).
 * Access as a student:
 2. Enter a valid student ID (any number between 650320-650340) to access the student registration GUI.
 3. Follow the GUI prompts to search, add, drop courses, view catalogue or view all registered courses
