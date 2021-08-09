@@ -2,7 +2,7 @@ import java.util.ArrayList;
 /**
 	* Object storing information relevant to a student
 	* @author Aaron Li, Jian Shi Chen
-	* @version 1.0
+	* @version 2.0
 	* @since August 3, 2021
 	*/
 public class Student {
@@ -43,10 +43,19 @@ public class Student {
 		return studentName;
 	}
 
+	/**
+		* getter for the registration list
+		* @return registration arraylist
+		*/
 	public ArrayList <Registration> getRegList(){
 		return studentRegistrationList;
 	}
 
+
+	/**
+		* delete a retgistration from the registration list given an index
+		* @param i index of registration to be deleted
+		*/
 	public void deleteRegistration (int i){
 		studentRegistrationList.remove(i);
 	}
@@ -74,9 +83,13 @@ public class Student {
 		this.studentID = studentID;
 	}
 
+	/**
+		* gets the number of registration a student has
+		*/
 	public int getRegSize(){
 		return studentRegistrationList.size();
 	}
+
 		/**
 			* to String method for Student .
 			* @return String that can be printed to console
@@ -88,15 +101,23 @@ public class Student {
 				return st;
 	}
 
+	/**
+		* To string function for the student formatted slightly differently
+		* has student registration information
+		*/
 	public String toString2 () {
 		String st = "Student Name: " + getStudentName() + "\n" +
 				"Student Id: " + getStudentID() + "\n\n";
 		for (int i=0;i<studentRegistrationList.size();i++){
 			st = st+ "Course: " + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseName() + studentRegistrationList.get(i).getSectionOffering().getTheCourse().getCourseNumber()+  "\n\n" ;
-	}
+		}
 		return st;
 	}
 
+	/**
+		* add a registration to the student registration list
+		* @param registration to be added
+		*/
 	public void addRegistration(Registration registration) {
 		// TODO Auto-generated method stub
 		studentRegistrationList.add(registration);

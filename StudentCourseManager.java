@@ -1,21 +1,72 @@
 import java.util.ArrayList;
 
+/**
+  * Manage all the methods relating to a student and a course
+  */
 public class StudentCourseManager{
+  /**
+    * A copy of the course Catalogue
+    */
   private CourseCatalogue Catalogue;
+
+  /**
+    * A copy of the student data base
+    */
   private StudentData studentData;
+
+  /**
+    *  The student name
+    */
   private String studentName;
+
+  /**
+    * the student ID
+    */
   private int studentID;
+
+  /**
+    * the course name
+    */
   private String courseName;
+
+  /**
+    * the course number
+    */
   private int courseNumber;
+
+  /**
+    * the section number
+    */
   private int sectionNumber;
 
+  /**
+    * Constructor for the student course manager
+    * @param s copy of the student database
+    */
   public StudentCourseManager (StudentData s){
       studentData=s;
   }
+
+  /**
+    * Constructor for the student course manager
+    * @param s copy of the student database
+    * @param sID the student ID number
+    */
   public StudentCourseManager (StudentData s, int sID){
       studentData=s;
       studentID=sID;
   }
+
+  /**
+    * Constructor for the student course manager
+    * @param s copy of the student database
+    * @param c copy of the course catalogue
+    * @param sName student name
+    * @param sID the student ID
+    * @param cName the course name
+    * @param cNum the course number
+    * @param section the section number
+    */
   public StudentCourseManager(CourseCatalogue c, StudentData s, String sName, int sID, String cName,int cNum, int section)
   {
     Catalogue=c;
@@ -27,6 +78,14 @@ public class StudentCourseManager{
     sectionNumber=section;
   }
 
+  /**
+    * Constructor for the student course manager
+    * @param s copy of the student database
+    * @param c copy of the course catalogue
+    * @param sID the student ID
+    * @param cName the course name
+    * @param cNum the course number
+    */
   public StudentCourseManager(CourseCatalogue c, StudentData s,int sID, String cName, int cNum){
     Catalogue=c;
     studentData=s;
@@ -37,7 +96,10 @@ public class StudentCourseManager{
     sectionNumber=0;
   }
 
-
+  /**
+    * check if the student is a registered student
+    * @return -1 if student is not found, else return the index of the student in the student array list
+    */
   public int isRegisteredStudent(){
     for(int i=0;i<studentData.studentList.size();i++){
       if (studentData.studentList.get(i).getStudentID()==studentID)
@@ -46,6 +108,10 @@ public class StudentCourseManager{
     return -1;
   }
 
+  /**
+    * Main logic for registering a student into a new course
+    * @return a string representing the outcome of the operation
+    */
   public String RegisterCourse(){
     Course c=Catalogue.searchCatalogue(courseName, courseNumber);
     if (c!=null){
@@ -73,7 +139,10 @@ public class StudentCourseManager{
     return ("Registration Failed!");
   }
 
-
+  /**
+    * Main logic for dropping a course
+    * @return a string representing the outcome of the operation
+    */
   public String DropCourse(){
     Course c= Catalogue.searchCatalogue(courseName,courseNumber);
     if (c!=null){
@@ -104,17 +173,17 @@ public class StudentCourseManager{
     return ("Can't drop course, drop your life");
   }
 
-
-    public String viewStudentCourses(int sID){
-      studentID=sID;
-      int temp=isRegisteredStudent();
-      if (temp==-1){
-        return("Student not found!");
-      }
-      return(studentData.studentList.get(temp).toString2());
+  /**
+    * Main logic for viewing all the courses taken by a student
+    * @param sID the student ID
+    * @return a string with all the courses a student is registered in
+    */
+  public String viewStudentCourses(int sID){
+    studentID=sID;
+    int temp=isRegisteredStudent();
+    if (temp==-1){
+      return("Student not found!");
     }
-
-
-
-
-      }
+      return(studentData.studentList.get(temp).toString2());
+  }
+}

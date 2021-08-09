@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
 	* Stores all the courses that the school offers.
 	* @author Aaron Li, Jian Shi Chen
-	* @version 1.0
+	* @version 2.0
 	* @since August 3, 2021
 	*/
 
@@ -34,6 +34,20 @@ public class CourseCatalogue {
 	}
 
 	/**
+		* Adds a new course to the courselist
+		* Also makes the section listings.
+		* @param c the new course being added
+		* @sectionNumber the number of sections to make specified by the user.
+		* @capacity the max capacity for each section specified by the user.
+		*/
+	public void addNewCourse(Course c, int sectionNumber,int capacity){
+		courseList.add(c);
+		for (int i=0; i<sectionNumber;i++){
+			createSectionOffering(courseList.get(courseList.size()-1),i+1,capacity);
+		}
+	}
+
+	/**
 		* Create section offering and add the offering to the course
 		* @param c Course object that will get new section addOffering
 		* @param sectionNum the section number of course addOffering
@@ -46,6 +60,10 @@ public class CourseCatalogue {
 		}
 	}
 
+	/**
+		* initialize section offerings for all the courses in the courseList after they get read from the DBManager.
+		* assumes all course has 2 section offerings with 10 people as max capacity.
+		*/
 	public void initializeSectionOffering(){
 		for (int i=0;i<courseList.size();i++){
 			createSectionOffering(courseList.get(i),1,10);

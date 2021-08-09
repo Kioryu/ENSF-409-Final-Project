@@ -2,107 +2,120 @@ import java.util.ArrayList;
 /**
 	* Holds all the information relevant to a sectionOffering object.
 	* @author Aaron Li, Jian Shi Chen
-	* @version 1.0
+	* @version 2.0
 	* @since August 3, 2021
 	*/
 public class SectionOffering {
 
-/**
-	* integer representing the section number
-	*/
+	/**
+		* integer representing the section number
+		*/
 	private int sectionNum;
 
-/**
-	* integer representing the section capacity
-	*/
+	/**
+		* integer representing the section capacity
+		*/
 	private int sectionCap;
 
-/**
-	* the Course that this section offering belongs to
-	*/
+	/**
+		* the Course that this section offering belongs to
+		*/
 	private Course theCourse;
-	//private ArrayList<Student> studentList;
 
-/**
-	* arraylist of registrations for a given sectionOffering
-	*/
+	/**
+		* arraylist of registrations for a given sectionOffering
+		*/
 	private ArrayList <Registration> sectionRegistrationList;
 
-/**
-	* Constructor for the sectionOffering object
-	* @param sectionNum section number of the course offering
-	* @param sectionCap max capacity of course offering
-	*/
+	/**
+		* Constructor for the sectionOffering object
+		* @param sectionNum section number of the course offering
+		* @param sectionCap max capacity of course offering
+		*/
 	public SectionOffering (int sectionNum, int sectionCap) {
 		this.setSectionNum(sectionNum);
 		this.setSectionCap(sectionCap);
 		sectionRegistrationList = new ArrayList <Registration>();
 	}
 
+	/**
+		* Checks if the section is full
+		* @returns full is the class registration is at maximum capacity
+		*/
 	public boolean sectionFull(){
 		if (sectionRegistrationList.size()>=sectionCap)
 			return true;
 		return false;
 	}
+
+	/**
+		* gets the section's registration list
+		* @return registration arraylist
+		*/
 	public ArrayList <Registration> getSectionRegistrationList(){
 		return sectionRegistrationList;
 	}
 
+	/**
+		* delete a registration at a specific index
+		* @param i the index of the registration to delete
+		*/
 	public void deleteRegistration(int i){
 		sectionRegistrationList.remove(i);
 	}
-/**
-	* get section number
-	* @return integer of section number
-	*/
+
+	/**
+		* get section number
+		* @return integer of section number
+		*/
 	public int getSectionNum() {
 		return sectionNum;
 	}
 
-/**
-	* get set section number
-	* @param sectionNum section number to be setted
-	*/
+	/**
+		* get set section number
+		* @param sectionNum section number to be setted
+		*/
 	public void setSectionNum(int sectionNum) {
 		this.sectionNum = sectionNum;
 	}
 
-/**
-	* get Section capacity
-	* @return integer representing section capacity
-	*/
+	/**
+		* get Section capacity
+		* @return integer representing section capacity
+		*/
 	public int getSectionCap() {
 		return sectionCap;
 	}
 
-/**
-	* set the section capacity
-	* @param sectionCap section capacity to be setted
-	*/
+	/**
+		* set the section capacity
+		* @param sectionCap section capacity to be setted
+		*/
 	public void setSectionCap(int sectionCap) {
 		this.sectionCap = sectionCap;
 	}
 
-/**
-	* get the course object
-	* @return course object containing this section offering
-	*/
+	/**
+		* get the course object
+		* @return course object containing this section offering
+		*/
 	public Course getTheCourse() {
 		return theCourse;
 	}
 
-/**
-	* set the course object
-	* @param theCourse that this section offering is offered for
-	*/
+	/**
+		* set the course object
+		* @param theCourse that this section offering is offered for
+		*/
 	public void setTheCourse(Course theCourse) {
 		this.theCourse = theCourse;
 	}
 
-/**
-	* to String method for printing
-	* @return String that can be printed.
-	*/
+	/**
+		* to String method for printing
+		* @return String that can be printed.
+		*/
 	@Override
 	public String toString () {
 		String st = "\n";
@@ -116,16 +129,12 @@ public class SectionOffering {
 		return st;
 	}
 
-/**
-	* add registration to the registration list
-	* @param registration object with student and seciton offering information
-	*/
+	/**
+		* add registration to the registration list
+		* @param registration object with student and seciton offering information
+		*/
 	public void addRegistration(Registration registration) {
 		// TODO Auto-generated method stub
 		sectionRegistrationList.add(registration);
-
 	}
-
-
-
 }

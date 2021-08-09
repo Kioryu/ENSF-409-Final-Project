@@ -4,98 +4,105 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.net.*;
 
+/**
+	* The server
+	* @author Jian Shi Chen
+	* @version 2.0
+	* @since August 5, 2021
+	*/
 public class Server {
 
+	/**
+		* The socket to communicate with client
+		*/
 	private static Socket aSocket;
+
+	/**
+		* the serverSocket for the program
+		*/
 	private static ServerSocket serverSocket;
-	private static  PrintWriter socketOut;
+
+	/**
+		* The print writer stream for ouputing to socket
+		*/
+	private static PrintWriter socketOut;
+
+	/**
+		* the buffer reader stream for reading input from socket
+		*/
 	private static BufferedReader socketIn;
 
+	/**
+		* The registration app
+		*/
+	private static RegistrationApp r;
 
+	/**
+		* The pool of threads
+		*/
+	private static ExecutorService pool;
+
+	/**
+		* Constructor for the server
+		* @param port the port number
+		*/
 	public Server(int port) {
 		try {
 			serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
+				pool = Executors.newFixedThreadPool(5);
+		}
+		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-  public void runApp(RegistrationApp r) throws IOException{
+	/**
+		* run the application
+		* sets up the socketIn and socketOut
+		* establish connection with client and assign it to a thread
+		* @throws IOException when there is an error from buffered reader or print writer
+		*/
+  public void runApp() throws IOException{
+		try{
+			while(true){
+			aSocket = serverSocket.accept();
+			System.out.println("Connection accepted by server!");
+			socketIn = new BufferedReader (new InputStreamReader (aSocket.getInputStream()));
+			socketOut = new PrintWriter((aSocket.getOutputStream()), true);
+			RunApp runThread = new RunApp(socketIn, socketOut, r);
+			pool.execute(runThread);
+  		}
+		}
+		catch (IOException e){
+			System.out.println("Server Closing");
+		}
+	}
 
-      String output;
-			String s;
-			String newStudentName;
-      while(true){
-				s= socketIn.readLine();
-				String [] input = s.split(" ");
-				if(s.equals("QUIT"))
-					break;
-				else if (input[0].equals("11")){
-					String studentExist=r.checkStudentRecords(Integer.parseInt(input[1]));
-					socketOut.println(studentExist+"\nEND\n");
-					socketOut.flush();
-				}
-      	else if(s.startsWith("1")){
-        	output=r.searchCatalogue(input[1].toUpperCase(),input[2]);
-					System.out.println(input[1]+input[2]);
-					System.out.println(output);
-        	socketOut.println(output+"\nEND\n");
-					socketOut.flush();
-      	}
-      	else if(s.startsWith("2")){
-        	output=r.registerCourse(Integer.parseInt(input[5]),input[1].toUpperCase(),input[2],Integer.parseInt(input[3]),input[4]);
-					System.out.println(output);
-        	socketOut.println(output+"\nEND\n");
-					socketOut.flush();
-        }
-      	else if(s.startsWith("3")){
-        	output=r.dropCourse(Integer.parseInt(input[3]),input[1].toUpperCase(),input[2]);
-        	socketOut.print(output+"\nEND\n");
-					socketOut.flush();
-        }
-      	else if(s.startsWith("4")){
-        	output=r.displayAllCourses();
-        	socketOut.print(output+"\nEND\n");
-					socketOut.flush();
-        }
-      	else if(s.startsWith("5")){
-        	output=r.displayStudentCourses(Integer.parseInt(input[1]));
-        	socketOut.print(output+"\nEND\n");
-					socketOut.flush();
-        }
-
-
-
-				else if (input[0].equals("12")){
-					newStudentName=input[1];
-				}
-      	else socketOut.print("failed");
-    	}
-  }
-
-
+	/**
+		* the main function for the server side
+		* @param args gives the program the ability to pass
+		* @throws IOException when there is any issue with the socket streams
+		*/
 
 	public static void main (String [] args) throws IOException{
 
 		try {
 		    Server myServer = new Server(9898);
-		    myServer.aSocket = myServer.serverSocket.accept();
-        RegistrationApp r= new RegistrationApp ();
-		    System.out.println("Connection accepted by server!");
-		    myServer.socketIn = new BufferedReader (new InputStreamReader (myServer.aSocket.getInputStream()));
-	      myServer.socketOut = new PrintWriter((myServer.aSocket.getOutputStream()), true);
-        myServer.runApp(r);
-				myServer.socketIn.close();
-				myServer.socketOut.close();
+				System.out.println("Server Starting");
+       	r= new RegistrationApp ();
+        myServer.runApp();
+
+				socketIn.close();
+				socketOut.close();
 			}
 			catch (IOException e) {
 				e.getStackTrace();
 			}
-
-
-
 	}
 
 }

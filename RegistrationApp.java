@@ -8,51 +8,135 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+	* This class takes care of the main functionality of the program.
+	* @author Jian Shi Chen
+	* @version 2.0
+	* @since August 5,2021
+	*/
+
 public class RegistrationApp {
+
+	/**
+		* A course catalogue with all the courses
+		*/
 	private CourseCatalogue cat=new CourseCatalogue();
+
+	/**
+		* The student database
+		*/
 	private StudentData studentdata=new StudentData(cat);
-	private Course c;
 
-
+	/**
+		* The constructor for RegistrationApp
+		*/
 	public RegistrationApp(){
 		cat=new CourseCatalogue();
 		studentdata=new StudentData(cat);
 		studentdata.initialsetupStudentData();
 		}
 
+	/**
+		* Getter for the student database
+		* @return studentdata object
+		*/
 	public StudentData getStudentData(){
 			return studentdata;
 		}
 
+	/**
+		* To add a course to the course catalogue
+		* @param cName the course name of the new course
+		* @param cNumber the course number of the new course
+		* @param sectionNumber  the number of sections to create for the new course
+		* @param capacity the max capacity for each section
+		* @return String telling the client if the operation was successful or not
+		*/
+  synchronized public String addCourse(String cName, int cNumber,int sectionNumber, int capacity){
+		if(sectionNumber>0 && capacity>0){
+			Course c= new Course(cName,cNumber);
+			cat.addNewCourse(c,sectionNumber,capacity);
+			return("Add Course Complete!");
+		}
+		return("Add Course Failed");
+	}
+
+	/**
+		* To add a student to the student data base
+		* @param sName the student Name
+		* @param sID the student ID
+		* @return String telling the client if the operation was successful or not
+		*/
+	synchronized public String addStudent(String sName,int sID){
+			Student temp = new Student(sName,sID);
+			studentdata.addNewRegistration(temp);
+			return("Add Student successful!");
+	}
+
+	/**
+		* To search the catalogue
+		* @param cName the courseName we are searching for
+		* @param cNum the course number we are searching for
+		* @return course not found or the information about the course
+		*/
 	public String searchCatalogue(String cName, String cNum){
 		c=cat.searchCatalogue(cName, Integer.parseInt(cNum));
 		if(c==null)
 			return("Course not found!");
 		return (c.toString());
+	}
 
-			}
-
-	public String registerCourse(int i, String cName, String cNum, int secNum,String studentName){
+	/**
+		* To register for a course
+		* @param i the ID of the student
+		* @param cName the course name
+		* @param cNum the course number
+		* @param secNum the section Number
+		* @param studentName the student name
+		* @return the outcome of the operation
+		*/
+	synchronized public String registerCourse(int i, String cName, String cNum, int secNum,String studentName){
 		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,studentName,i,cName, Integer.parseInt(cNum),secNum);
 		String s=temp.RegisterCourse();
 		return (s);
 	}
 
-	public String dropCourse(int i, String cName, String cNum){
+	/**
+		* To drop a course
+		* @param i the student ID
+		* @param cName the course Name
+		* @param cNum the course number
+		* @return the outcome of the operation
+		*/
+	synchronized public String dropCourse(int i, String cName, String cNum){
 		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,i,cName, Integer.parseInt(cNum));
 		String s=temp.DropCourse();
 		return (s);
 	}
 
-	public String displayStudentCourses(int i){
+	/**
+		* To look at all the courses that a student is taking
+		* @param i the student ID
+		* @return either operation failed or the list of student courses
+		*/
+	synchronized public String displayStudentCourses(int i){
 		StudentCourseManager temp=new StudentCourseManager(studentdata);
 		return(temp.viewStudentCourses(i));
 	}
 
+	/**
+		* display All the courses in the course catalogue
+		* @return the String outputing all the courses in the course catalogue.
+		*/
 	public String displayAllCourses(){
 		return (cat.toString());
 	}
 
+	/**
+		* check if a student ID is in the records
+		* @param i the student ID
+		* @return the student Name of the student or null if not registered.
+		*/
 	public String checkStudentRecords(int i){
 		StudentCourseManager temp=new StudentCourseManager (studentdata,i);
 		int registered=temp.isRegisteredStudent();
@@ -61,8 +145,6 @@ public class RegistrationApp {
 		}
 		return ("null");
 	}
-
-
 
 
 	public static void main(String[]args){

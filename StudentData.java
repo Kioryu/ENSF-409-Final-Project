@@ -3,20 +3,50 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+  * The student database monitored through a dat file and random access file pointer
+  * @author Jian Shi Chen
+  * @version 2.0
+  * @since August 5,2021
+  */
 public class StudentData{
+  /**
+    * The file containing the data
+    */
   private  File  fileIN;
+
+  /**
+    * The input scanner
+    */
   private  Scanner scan= new Scanner (System.in);
+
+  /**
+    * an arraylist storing all the student
+    */
   public static ArrayList <Student> studentList = new ArrayList<Student> ();
+
+  /**
+    * a copy of the course catalogue
+    */
   private CourseCatalogue cat;
+
+  /**
+    * A random access file pointer
+    */
   private RandomAccessFile ra=null;
 
+  /**
+    * Cosntructor for the student data
+    * @param c copy of the course catalogue
+    */
   public StudentData(CourseCatalogue c){
    cat = c;
    fileIN= new File ("StudentData.dat");
   }
 
-
-
+  /**
+    * To set up the student data file the first time
+    */
   public void initialsetupStudentData(){
     if(! fileIN.exists() || ! fileIN.isFile())
     {
@@ -36,7 +66,11 @@ public class StudentData{
   else readFile();
   }
 
-
+  /**
+    * Add student entry when initially setting up the student dat file
+    * @param r the random access file pointing to the beginning of the StudentData.dat file
+    * @throws IOException when there is an error from the scanner
+    */
   public void addStudentEntry(RandomAccessFile r) throws IOException{
     String cont = "Y";
     RandomAccessFile ra=r;
@@ -82,6 +116,9 @@ public class StudentData{
 
     }
 
+    /**
+      * Reads the StudentData.dat file
+      */
     public void readFile(){
       if(fileIN.exists()){
         try{
@@ -132,6 +169,13 @@ public class StudentData{
       }
     }
 
+  /**
+    * add a registration to an existing student
+    * @param studentIndex the student Index of student in student List
+    * @param courseName the course name of new registration
+    * @param courseNumber the course number of new registration
+    * @param sectionNumber the section number of new registration
+    */
   public void addRegistration(int studentIndex,String courseName,int courseNumber, int sectionNumber){
     try{
       ra=new RandomAccessFile("StudentData.dat","rw");
@@ -201,7 +245,7 @@ public class StudentData{
     }
   }
 
-  /*  public void addNewRegistration(Student temp){
+    public void addNewRegistration(Student temp){
       System.out.println("writring to file") ;
       studentList.add(temp);
       try{
@@ -215,7 +259,7 @@ public class StudentData{
         int studentID= temp.getStudentID();
         System.out.println(studentID);
         r.writeInt(studentID);
-        StringBuffer emptyspaces=new StringBuffer(" ");
+        StringBuffer emptyspaces=new StringBuffer("0000");
         emptyspaces.setLength(48);
         r.writeChars(emptyspaces.toString());
         System.out.println("finished writing");
@@ -226,7 +270,7 @@ public class StudentData{
         System.out.println("error");
       }
     }
-  */
+
 
 
 
