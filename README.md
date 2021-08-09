@@ -13,9 +13,9 @@ All the data (courseList and studentList) are stored in .dat files accessed thro
 3. Follow the GUI prompts to search, add, drop courses, view catalogue or view all registered courses
 
 * Access as an admin:
-2. Enter following credential to access the admin GUI
-** ID: 123456
-** Password: peanut
+2. Enter following credential to access the admin GUI:
+    * ID: 123456
+    * Password: peanut
 3. Follow the GUI prompts to add course, add student or turn off the server
 
 ## Additional Features
