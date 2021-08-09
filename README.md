@@ -18,6 +18,10 @@ All the data (courseList and studentList) are stored in .dat files accessed thro
     * Password: peanut
 3. Follow the GUI prompts to add course, add student or turn off the server
 
+* Important Notes:
+   * Do not type space after input in JTextFields
+   * Do not click Drop course or Add course button when TextFields are empty
+  
 ## Additional Features
 * Added user login feature (typing in the correct studentID)
 * Added admin GUI for adding new courses, adding new students and terminate server
