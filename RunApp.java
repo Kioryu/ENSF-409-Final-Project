@@ -100,7 +100,7 @@ public class RunApp implements Runnable{
           output=r.searchCatalogue(input[1].toUpperCase(),input[2]);
           System.out.println(input[1]+input[2]);
           System.out.println(output);
-          socketOut.println(output+"\nEND");
+          socketOut.println(output+"\nEND\n");
           socketOut.flush();
         }
         else if(input[0].equals("2")){
@@ -117,12 +117,12 @@ public class RunApp implements Runnable{
         }
         else if(input[0].equals("4")){
           output=r.displayAllCourses();
-          socketOut.print(output+"\nEND");
+          socketOut.print(output+"\nEND\n");
           socketOut.flush();
         }
         else if(input[0].equals("5")){
           output=r.displayStudentCourses(Integer.parseInt(input[1]));
-          socketOut.print(output+"\nEND");
+          socketOut.print(output+"\nEND\n");
           socketOut.flush();
         }
         else socketOut.print("failed");
