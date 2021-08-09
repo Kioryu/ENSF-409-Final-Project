@@ -67,11 +67,10 @@ public class StudentCourseManager{
     * @param cNum the course number
     * @param section the section number
     */
-  public StudentCourseManager(CourseCatalogue c, StudentData s, String sName, int sID, String cName,int cNum, int section)
+  public StudentCourseManager(CourseCatalogue c, StudentData s,int sID, String cName,int cNum, int section)
   {
     Catalogue=c;
     studentData=s;
-    studentName=sName;
     studentID=sID;
     courseName=cName;
     courseNumber=cNum;
@@ -164,10 +163,11 @@ public class StudentCourseManager{
           for (int j=0; j<r.size();j++){
             if(r.get(j).getStudent().getStudentID()==studentID)
               s.deleteRegistration(j);
+              return("Drop Successful!");
             }
           }
         studentData.removeFromData(studentIndex,courseName,courseNumber);
-        return("Drop Successful!");
+
       }
     }
     return ("Can't drop course, drop your life");

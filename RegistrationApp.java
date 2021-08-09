@@ -80,7 +80,7 @@ public class RegistrationApp {
 		* @return course not found or the information about the course
 		*/
 	public String searchCatalogue(String cName, String cNum){
-		c=cat.searchCatalogue(cName, Integer.parseInt(cNum));
+		Course c=cat.searchCatalogue(cName, Integer.parseInt(cNum));
 		if(c==null)
 			return("Course not found!");
 		return (c.toString());
@@ -95,8 +95,8 @@ public class RegistrationApp {
 		* @param studentName the student name
 		* @return the outcome of the operation
 		*/
-	synchronized public String registerCourse(int i, String cName, String cNum, int secNum,String studentName){
-		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,studentName,i,cName, Integer.parseInt(cNum),secNum);
+	synchronized public String registerCourse(int i, String cName, String cNum, int secNum){
+		StudentCourseManager temp= new StudentCourseManager (cat, studentdata,i,cName, Integer.parseInt(cNum),secNum);
 		String s=temp.RegisterCourse();
 		return (s);
 	}
@@ -146,7 +146,7 @@ public class RegistrationApp {
 		return ("null");
 	}
 
-
+/*
 	public static void main(String[]args){
 		CourseCatalogue cat=new CourseCatalogue();
 		StudentData studentdata=new StudentData(cat);
@@ -224,9 +224,6 @@ public class RegistrationApp {
       }
     }
 
-
+*/
 
   }
-
-
-}

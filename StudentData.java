@@ -184,10 +184,8 @@ public class StudentData{
       System.out.println("Truly unfortunate");
     }
     try{
-      //System.out.println("current file pointer position"+ ra.getFilePointer());
       int increment=studentIndex*160+64;
       ra.seek(increment);
-    //  System.out.println("current file pointer position"+ ra.getFilePointer());
       StringBuffer cn=new StringBuffer(courseName);
       cn.setLength(4);
       for (int m=0;m<6;m++){
@@ -212,7 +210,12 @@ public class StudentData{
     }
   }
 
-
+  /**
+    * remove student registration from database
+    * @param studentIndex the student Index of student in student List
+    * @param courseName the course name of new registration
+    * @param courseNumber the course number of new registration
+    */
   public void removeFromData(int studentIndex, String courseName, int courseNumber){
     System.out.println("deleting from file");
     try{
@@ -245,34 +248,34 @@ public class StudentData{
     }
   }
 
-    public void addNewRegistration(Student temp){
-      System.out.println("writring to file") ;
-      studentList.add(temp);
-      try{
-        RandomAccessFile r=new RandomAccessFile("StudentData.dat","rw");
-        System.out.println(studentList.size()-1);
-        r.seek(160*(studentList.size()-1));
-        StringBuffer sn= new StringBuffer (temp.getStudentName());
-        sn.setLength(30);
-        System.out.println(sn.toString());
-        r.writeChars(sn.toString());
-        int studentID= temp.getStudentID();
-        System.out.println(studentID);
-        r.writeInt(studentID);
-        StringBuffer emptyspaces=new StringBuffer("0000");
-        emptyspaces.setLength(48);
-        r.writeChars(emptyspaces.toString());
-        System.out.println("finished writing");
-        System.out.println(temp);
-        r.close();
-      }
-      catch(IOException e){
-        System.out.println("error");
-      }
+  /**
+    * add a new student to the database
+    * @param temp new student object to be added
+    */
+  public void addNewRegistration(Student temp){
+    System.out.println("writring to file") ;
+    studentList.add(temp);
+    try{
+      RandomAccessFile r=new RandomAccessFile("StudentData.dat","rw");
+      System.out.println(studentList.size()-1);
+      r.seek(160*(studentList.size()-1));
+      StringBuffer sn= new StringBuffer (temp.getStudentName());
+      sn.setLength(30);
+      System.out.println(sn.toString());
+      r.writeChars(sn.toString());
+      int studentID= temp.getStudentID();
+      System.out.println(studentID);
+      r.writeInt(studentID);
+      StringBuffer emptyspaces=new StringBuffer("0000");
+      emptyspaces.setLength(48);
+      r.writeChars(emptyspaces.toString());
+      System.out.println("finished writing");
+      System.out.println(temp);
+      r.close();
     }
-
-
-
-
+    catch(IOException e){
+      System.out.println("error");
+    }
+  }
 
 }

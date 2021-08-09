@@ -64,34 +64,34 @@ public class RunApp implements Runnable{
           break;
         else if (input[0].equals("11")){
           if (input[1].equals("123456")){
-            socketOut.println("Admin"+"\nEND\n");
+            socketOut.println("Admin"+"\nEND");
             socketOut.flush();
           }
           else{
           String studentExist=r.checkStudentRecords(Integer.parseInt(input[1]));
-          socketOut.println(studentExist+"\nEND\n");
+          socketOut.println(studentExist+"\nEND");
           socketOut.flush();
           }
         }
         else if (input[0].equals("12")){
           if (input[1].equals("peanut")){
-            socketOut.println("Authenticated"+"\nEND\n");
+            socketOut.println("Authenticated"+"\nEND");
           }
-          else socketOut.println("authetication failed!"+"\nEND\n");
+          else socketOut.println("authetication failed!"+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("21")){
           output=r.addCourse(input[1].toUpperCase(),Integer.parseInt(input[2]),Integer.parseInt(input[3]),Integer.parseInt(input[4]));
-          socketOut.println(output+"\nEND\n");
+          socketOut.println(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("22")){
           output=r.addStudent(input[1],Integer.parseInt(input[2]));
-          socketOut.println(output+"\nEND\n");
+          socketOut.println(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("69")){
-          socketOut.println("Server Died"+"\nEND\n");
+          socketOut.println("Server Died"+"\nEND");
           socketOut.flush();
           System.exit(0);
         }
@@ -99,28 +99,29 @@ public class RunApp implements Runnable{
           output=r.searchCatalogue(input[1].toUpperCase(),input[2]);
           System.out.println(input[1]+input[2]);
           System.out.println(output);
-          socketOut.println(output+"\nEND\n");
+          socketOut.println(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("2")){
-          output=r.registerCourse(Integer.parseInt(input[5]),input[1].toUpperCase(),input[2],Integer.parseInt(input[3]),input[4]);
+          output=r.registerCourse(Integer.parseInt(input[4]),input[1].toUpperCase(),input[2],Integer.parseInt(input[3]));
+
           System.out.println(output);
-          socketOut.println(output+"\nEND\n");
+          socketOut.println(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("3")){
           output=r.dropCourse(Integer.parseInt(input[3]),input[1].toUpperCase(),input[2]);
-          socketOut.print(output+"\nEND\n");
+          socketOut.print(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("4")){
           output=r.displayAllCourses();
-          socketOut.print(output+"\nEND\n");
+          socketOut.print(output+"\nEND");
           socketOut.flush();
         }
         else if(input[0].equals("5")){
           output=r.displayStudentCourses(Integer.parseInt(input[1]));
-          socketOut.print(output+"\nEND\n");
+          socketOut.print(output+"\nEND");
           socketOut.flush();
         }
         else socketOut.print("failed");
