@@ -21,3 +21,7 @@ All the data (courseList and studentList) are stored in .dat files accessed thro
 ## Additional Features
 * Added user login feature (typing in the correct studentID)
 * Added admin GUI for adding new courses, adding new students and terminate server
+
+
+## Notes
+* Server and Client code were modified from class example
