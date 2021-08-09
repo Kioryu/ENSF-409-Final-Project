@@ -1,3 +1,6 @@
+package Server;
+
+
 import java.util.ArrayList;
 /**
 	* Holds all the information relevant to a sectionOffering object.

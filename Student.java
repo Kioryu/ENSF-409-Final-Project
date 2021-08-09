@@ -1,3 +1,4 @@
+package Server;
 import java.util.ArrayList;
 /**
 	* Object storing information relevant to a student

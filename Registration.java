@@ -1,3 +1,6 @@
+package Server;
+
+
 /**
 	* Registration object that holds student and section offering information .
 	* @author Aaron Li, Jian Shi Chen

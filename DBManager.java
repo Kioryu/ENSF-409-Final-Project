@@ -1,3 +1,4 @@
+package Server;
 
 import java.io.RandomAccessFile;
 import java.io.*;
@@ -14,7 +15,18 @@ public class DBManager {
 	/**
 		* The arraylist containing all the course listings
 		*/
-	ArrayList <Course> courseList;
+	private ArrayList <Course> courseList;
+
+	/**
+		* The file to be read and written to
+		*/
+		private  File  fileIN;
+
+
+	  /**
+	    * A random access file pointer
+	    */
+	  private RandomAccessFile ra=null;
 
 	/**
 		* Constructor for the DBManager
@@ -25,20 +37,10 @@ public class DBManager {
 		initialsetupCourseData();
 	}
 
-	/**
-		* setup the course list
-		* @return the course list
-		*/
-		private  File  fileIN;
 
 
 	  /**
-	    * A random access file pointer
-	    */
-	  private RandomAccessFile ra=null;
-
-	  /**
-	    * To set up the student data file the first time
+	    * To set up the course data file the first time
 	    */
 	  public void initialsetupCourseData(){
 	    if(! fileIN.exists() || ! fileIN.isFile())
@@ -60,8 +62,8 @@ public class DBManager {
 	  }
 
 	  /**
-	    * Add student entry when initially setting up the student dat file
-	    * @param r the random access file pointing to the beginning of the StudentData.dat file
+	    * Add course entry when setting up pthe AllCourses.dat file
+	    * @param r the random access file pointing to the beginning of the AllCourses.dat file
 	    * @throws IOException when there is an error from the scanner
 	    */
 	  public void addCourseEntry(RandomAccessFile r) throws IOException{
@@ -105,7 +107,7 @@ public class DBManager {
 	   }
 
 	    /**
-	      * Reads the StudentData.dat file
+	      * Reads the AllCourses.dat file
 	      */
 	    public void readFile(){
 	      if(fileIN.exists()){
@@ -126,7 +128,7 @@ public class DBManager {
 	          }
 	        }
 	        catch(EOFException e){
-	          System.out.println("End of File");
+	     
 	        }
 	        catch(IOException e){
 	          System.out.println("GG");
@@ -143,8 +145,8 @@ public class DBManager {
 
 
 	  /**
-	    * add a new student to the database
-	    * @param temp new student object to be added
+	    * add a new courses to the file
+	    * @param c new Course to be added
 	    */
 	  public void addNewCourse(Course c){
 	    System.out.println("writring to file") ;
@@ -165,7 +167,10 @@ public class DBManager {
 	    }
 	  }
 
-
+		/**
+			* getter for courseList
+			* @return courselist
+			*/
 
 	public ArrayList readFromDataBase() {
 		// TODO Auto-generated method stub

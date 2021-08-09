@@ -1,3 +1,4 @@
+package Server;
 import java.util.ArrayList;
 
 /**
@@ -170,7 +171,7 @@ public class StudentCourseManager{
 
       }
     }
-    return ("Can't drop course, drop your life");
+    return ("Can't drop course");
   }
 
   /**

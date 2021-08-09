@@ -1,3 +1,5 @@
+package Server;
+
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 import java.io.*;
@@ -133,9 +135,7 @@ public class StudentData{
             for (int nameCharacter=0;nameCharacter<30;nameCharacter++)
               scanName[nameCharacter]=ra.readChar();
             String outputName= new String(scanName);
-            System.out.println(outputName);
             int outputID = ra.readInt();
-            System.out.println(outputID);
             studentList.add(new Student(outputName,outputID));
             for (int m=0;m<6;m++){
               char courseID[]= new char[4];
@@ -155,7 +155,6 @@ public class StudentData{
           }
         }
         catch(EOFException e){
-          System.out.println("End of File");
         }
         catch(IOException e){
           System.out.println("GG");
