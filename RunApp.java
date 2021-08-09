@@ -64,7 +64,7 @@ public class RunApp implements Runnable{
           break;
         else if (input[0].equals("11")){
           if (input[1].equals("123456")){
-            socketOut.println("Admin"+"\nEND");
+            socketOut.println("ADMIN"+"\nEND");
             socketOut.flush();
           }
           else{
@@ -75,7 +75,7 @@ public class RunApp implements Runnable{
         }
         else if (input[0].equals("12")){
           if (input[1].equals("peanut")){
-            socketOut.println("Authenticated"+"\nEND");
+            socketOut.println("PASS"+"\nEND");
           }
           else socketOut.println("authetication failed!"+"\nEND");
           socketOut.flush();

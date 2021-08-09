@@ -143,7 +143,7 @@ public class RegistrationApp {
 		if (registered>0){
 			return(studentdata.studentList.get(registered).getStudentName());
 		}
-		return ("null");
+		return ("FAIL");
 	}
 
 /*

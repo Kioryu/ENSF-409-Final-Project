@@ -13,7 +13,7 @@ public class CourseCatalogue {
 		* stores all the course in an ArrayList
 		*/
 	private ArrayList <Course> courseList;
-
+	private DBManager db;
 
 	/**
 		* Constructor for CourseCatalogue.
@@ -28,7 +28,7 @@ public class CourseCatalogue {
 		*/
 	private void loadFromDataBase() {
 		// TODO Auto-generated method stub
-		DBManager db = new DBManager();
+		db = new DBManager();
 		setCourseList(db.readFromDataBase());
 		initializeSectionOffering();
 	}
@@ -45,6 +45,7 @@ public class CourseCatalogue {
 		for (int i=0; i<sectionNumber;i++){
 			createSectionOffering(courseList.get(courseList.size()-1),i+1,capacity);
 		}
+		db.addNewCourse(c);
 	}
 
 	/**
